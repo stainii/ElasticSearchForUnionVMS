@@ -1,0 +1,8 @@
+filebeat.prospectors:
+- type: log
+  enabled: true
+  paths:
+    - /app/logs/*/*.log
+    - /opt/jboss/wildfly/standalone/log/*.log
+output.logstash:
+  hosts: ["logstash:5044"]
