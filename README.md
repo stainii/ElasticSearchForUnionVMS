@@ -20,7 +20,7 @@ The log file location is expected to be: `/app/logs`.
 You can change this in the config at `./filebeat/filebeat.yml`.
 
 ### Interpreting log patterns
-The definition of the log patterns can be found in "./logstash/logstash.yml"
+The definition of the log patterns can be found in `./logstash/logstash.yml`
 
 
 ## Contents
