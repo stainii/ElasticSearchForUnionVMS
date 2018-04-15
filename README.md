@@ -3,21 +3,21 @@ A set of Docker containers, tuned to search in logs of UnionVMS.
 
 
 ## Quick setup
-1. Run "docker-compose up -d", on the same host as Union.
+1. Run `docker-compose up -d`, on the same host as Union.
 1. Wait for a few minutes. It takes some time for all components to start up, and find each other.
-Errors in the logs like "could not connect to elastic stash" or "connection refused" are normal during the first minutes, since the components start up simultaneously.
+Errors in the logs like `could not connect to elastic stash` or `connection refused` are normal during the first minutes, since the components start up simultaneously.
 1. Kibana should be started at http://localhost:5601/.
 When you go that url, you should have the option to create a first index, based on logstash data.
 If not so, wait a bit more.
 1. When the index has been created, you can start creating your own visualisations.
-Also, you can import "./kibana/export.json", by going to "Management" => "Saved Objects" => "Import".
+Also, you can import `./kibana/export of settings.json`, by going to `Management` => `Saved Objects` => `Import`.
 
 ## Settings
 You can find the settings of each module in each corresponding subfolder of this project.
 
 ### Log locations
-The log file location is expected to be: "/app/logs".
-You can change this in the config at "./filebeat/filebeat.yml".
+The log file location is expected to be: `/app/logs`.
+You can change this in the config at `./filebeat/filebeat.yml`.
 
 ### Interpreting log patterns
 The definition of the log patterns can be found in "./logstash/logstash.yml"
