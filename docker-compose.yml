@@ -1,23 +1,21 @@
-version: '2'
+version: 3
 
 services:
 
   elasticsearch:
-    build:
-      context: elasticsearch/
+    image: "docker.elastic.co/elasticsearch/elasticsearch-oss:6.6.0"
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
     ports:
       - "9200:9200"
       - "9300:9300"
     environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ES_JAVA_OPTS: "-Xmx4G -Xms4G"
     networks:
       - elk
 
   logstash:
-    build:
-      context: logstash/
+    image: "docker.elastic.co/logstash/logstash-oss:6.6.0"
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
@@ -25,34 +23,27 @@ services:
       - "5000:5000"
       - "5044:5044"
     environment:
-      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      LS_JAVA_OPTS: "-Xmx1G -Xms1G"
     networks:
       - elk
-    depends_on:
-      - elasticsearch
 
   kibana:
-    build:
-      context: kibana/
+    image: "docker.elastic.co/kibana/kibana-oss:6.6.0"
     volumes:
       - ./kibana/config/:/usr/share/kibana/config:ro
     ports:
       - "5601:5601"
     networks:
       - elk
-    depends_on:
-      - elasticsearch
       
   filebeat:
-    image: "docker.elastic.co/beats/filebeat:6.2.3"
+    image: "docker.elastic.co/beats/filebeat:6.6.0"
     volumes:
     - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
     - /app/logs/:/app/logs/
+    - ./filebeat/data:/usr/share/filebeat/data
     networks:
       - elk
-    depends_on:
-      - logstash
-      - elasticsearch
 
 networks:
   elk:
