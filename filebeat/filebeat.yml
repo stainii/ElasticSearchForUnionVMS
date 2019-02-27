@@ -1,14 +1,15 @@
 filebeat:
   registry_file: /usr/share/filebeat/data/.registry
-  - type: log
-    enabled: true
-    paths:
-      - /app/logs/*/*.log
-      - /opt/jboss/wildfly/standalone/log/*.log
-    multiline.pattern: "^([0-9]{4}-[0-9]{2}-[0-9]{2})"
-    multiline.negate: true
-    multiline.match: after
-    fields:  {application: UnionVMS, environment: production}
+  prospectors:
+    - type: log
+      enabled: true
+      paths:
+        - /app/logs/*/*.log
+        - /opt/jboss/wildfly/standalone/log/*.log
+      multiline.pattern: "^([0-9]{4}-[0-9]{2}-[0-9]{2})"
+      multiline.negate: true
+      multiline.match: after
+      fields:  {application: UnionVMS, environment: production}
 output:
-    logstash:
-      hosts: ["logstash:5044"]
+  logstash:
+    hosts: ["logstash:5044"]
