@@ -1,6 +1,6 @@
 filebeat:
   registry_file: /usr/share/filebeat/data/.registry
-  prospectors:
+  inputs:
     - type: log
       enabled: true
       paths:
@@ -9,7 +9,9 @@ filebeat:
       multiline.pattern: "^([0-9]{4}-[0-9]{2}-[0-9]{2})"
       multiline.negate: true
       multiline.match: after
-      fields:  {application: UnionVMS, environment: production}
+      fields:
+        application: UnionVMS
+        environment: production
 output:
   logstash:
     hosts: ["logstash:5044"]
